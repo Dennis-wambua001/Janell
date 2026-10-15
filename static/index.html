@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jenell's Luxe Vault | Luxury, Perfectly Personal</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FBF7EE;--cream:#FFFDF8;--blush:#E3EEE7;--blush2:#F3EBD6;--line:#DCD2B4;--ink:#2B2118;--mut:#5E5646;--gold:#8A6A1B;--goldl:#C9A24D;--dark:#0B3B2C;--wa:#137A3B}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 'Hanken Grotesk',sans-serif}
+h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:600;margin:0;line-height:1.1}
+a{color:inherit}.muted{color:var(--mut)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:0;z-index:20;background:var(--cream);border-bottom:1px solid var(--line)}
+.bar{display:flex;flex-wrap:wrap;gap:6px 26px;align-items:center;justify-content:space-between;padding:8px 0}
+.logo{text-decoration:none;display:flex;flex-direction:column;align-items:center;line-height:1}
+.logo b{color:var(--dark);font:600 34px 'Cormorant Garamond',serif}.logo span{font-size:10px;letter-spacing:.18em;color:var(--gold)}
+nav{display:flex;flex-wrap:wrap;gap:0 20px}nav a{text-decoration:none;min-height:44px;display:flex;align-items:center}nav a:hover{color:var(--gold)}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 24px;min-height:44px;font:600 15px 'Hanken Grotesk',sans-serif;border:1px solid transparent;cursor:pointer;text-decoration:none;border-radius:4px}
+.gold{background:var(--gold);color:#fff}.wa{background:var(--wa);color:#fff}.momo{background:var(--dark);color:#fff;border-color:var(--goldl)}.out{background:none;border-color:var(--ink);color:var(--ink)}
+.hero{background:linear-gradient(120deg,var(--blush),var(--blush2))}.hero .wrap{padding:84px 20px}
+.hero small{color:var(--gold);letter-spacing:.14em}
+.hero h1{font-size:clamp(38px,6vw,68px);max-width:620px;margin:10px 0}.hero p{font-size:19px;max-width:460px;color:var(--mut);margin:0 0 28px}
+.trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;padding:30px 0}.trust div{border-left:3px solid var(--goldl);padding-left:14px}.trust b{display:block}.trust span{color:var(--mut);font-size:14px}
+.sec{padding-top:60px}.sec h2{font-size:38px;margin-bottom:20px}.sh{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:22px}
+.card{text-decoration:none;display:block;position:relative}.card .t{margin-top:10px;color:var(--mut);font-size:14px}.card .n{font-size:17px;font-weight:500}.card .pr{font-weight:600;color:var(--gold)}
+.badge{position:absolute;top:8px;left:8px;background:var(--dark);color:#fff;font-size:12px;padding:2px 8px;border-radius:3px}
+.ph{width:100%;aspect-ratio:1/1;background:linear-gradient(135deg,var(--blush),var(--cream));border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:14px;text-align:center;padding:8px;object-fit:cover}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.tile{text-decoration:none;background:var(--blush);padding:46px 28px;min-height:130px}.tile h3{font-size:32px}.tile span{color:var(--mut)}
+.love{background:var(--blush);padding:40px 28px;display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center}.love h2{margin:0;font-size:34px}
+.in{width:100%;padding:10px 12px;border:1px solid var(--mut);font:16px 'Hanken Grotesk',sans-serif;background:#fff;color:var(--ink);min-height:44px;border-radius:4px}
+.chk{display:flex;gap:10px;align-items:center;min-height:40px}
+.banner{background:linear-gradient(120deg,var(--blush),var(--blush2));padding:44px 0}.banner h1{font-size:46px}
+.shop{display:flex;flex-wrap:wrap;gap:34px;margin-top:28px}.side{flex:0 0 230px}.side h3{font-size:22px;margin:18px 0 4px}.main{flex:1 1 480px}
+.pager{display:flex;gap:8px;justify-content:center;margin-top:30px}.pager button{min-width:44px;min-height:44px;border:1px solid var(--line);background:#fff;cursor:pointer;font:inherit;border-radius:4px}.pager .on{background:var(--gold);color:#fff;border-color:var(--gold)}
+.pd{display:flex;flex-wrap:wrap;gap:44px;margin-top:18px}.pd>div{flex:1 1 340px}
+.thumbs{display:flex;gap:10px;margin-top:10px}.thumbs>*{flex:1;cursor:pointer}
+.opt{padding:8px 16px;min-height:44px;border:1px solid var(--mut);background:#fff;color:var(--ink);cursor:pointer;font:500 15px 'Hanken Grotesk',sans-serif;border-radius:4px}.opt.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.ok{color:var(--wa);font-weight:600}.stars{color:#B8860B;letter-spacing:2px}
+.assure{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;font-size:14px;color:var(--mut);margin:18px 0}
+details{border:1px solid var(--line);padding:0 16px;margin-top:10px;background:#fff}summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:600}
+.quote{border:1px solid var(--line);background:#fff;padding:22px}
+.split{display:flex;flex-wrap:wrap;background:#fff;border:1px solid var(--line);margin-top:24px}.split>div{flex:1 1 320px;padding:30px}.split .side2{background:linear-gradient(135deg,var(--blush),var(--blush2));display:flex;align-items:center;justify-content:center;font:600 34px 'Cormorant Garamond',serif;text-align:center}
+footer{background:var(--dark);color:#F5ECEA;margin-top:70px}footer .wrap{display:flex;flex-wrap:wrap;gap:14px 40px;justify-content:space-between;padding-top:30px;padding-bottom:30px}footer a{margin-right:14px}
+dialog{max-width:460px;border:0;border-radius:6px;padding:26px}dialog::backdrop{background:rgba(0,0,0,.55)}
+#toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--dark);color:#fff;padding:12px 18px;border-radius:4px;display:none;z-index:40;max-width:90%}
+:focus-visible{outline:3px solid var(--goldl);outline-offset:2px}
+</style>
+</head>
+<body>
+<header><div class="wrap bar">
+<a class="logo" href="#/"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 0l9 9-9 9-9-9z" fill="#C9A24D"/></svg><b>Jenell's</b><span>LUXE VAULT</span></a>
+<nav><a href="#/">Home</a><a href="#/shop">Shop</a><a href="#/about">About</a><a href="#/consult">Consultation</a><a href="#/contact">Contact</a></nav>
+<a class="btn wa" id="hwa" target="_blank" rel="noopener" href="#">Order on WhatsApp</a>
+</div></header>
+<main id="app"></main>
+<footer><div class="wrap"><div><b style="font:600 26px 'Cormorant Garamond',serif">Jenell's Luxe Vault</b><br><span class="muted">Perfumes, Jewellery and Gift Sets</span></div>
+<div id="soc"></div><div>&copy; 2026 Jenell's Luxe Vault. All rights reserved.</div></div></footer>
+<dialog id="momo"></dialog><div id="toast" role="status"></div>
+<script>
+/* ===== SETTINGS: edit these ===== */
+const WA="233542293709";                       // WhatsApp number, digits only, with country code
+const MOMO={number:"[MTN MOMO NUMBER]",name:"[ACCOUNT NAME]"};
+const SOCIAL={Instagram:"#",Facebook:"#",TikTok:"#"};
+const PER=6;                                   // products per page
+/* ================================ */
+const SAMPLE=[
+{id:1,n:"Floral Eau de Parfum",c:"Perfumes",b:"Brand A",g:"Women",p:850,o:["30ml","50ml","90ml"],t:"New"},
+{id:2,n:"Woody Eau de Toilette",c:"Perfumes",b:"Brand B",g:"Men",p:780,o:["50ml","100ml"],t:"Bestseller"},
+{id:3,n:"Sweet Vanilla Mist",c:"Perfumes",b:"Brand C",g:"Women",p:320,o:["100ml"]},
+{id:4,n:"Fresh Citrus Cologne",c:"Perfumes",b:"Brand B",g:"Unisex",p:560,o:["50ml","100ml"]},
+{id:5,n:"Rose Oud Parfum",c:"Perfumes",b:"Brand A",g:"Unisex",p:1200,o:["50ml","90ml"],t:"Hot"},
+{id:6,n:"Amber Night Parfum",c:"Perfumes",b:"Brand C",g:"Men",p:690,o:["50ml","100ml"]},
+{id:7,n:"Gold Necklace Set",c:"Jewellery",b:"Brand D",g:"Women",p:450,o:["Gold","Silver"],t:"Hot"},
+{id:8,n:"Stud Earrings",c:"Jewellery",b:"Brand D",g:"Women",p:280,o:["Gold","Silver"]},
+{id:9,n:"Luxury Bracelet",c:"Jewellery",b:"Brand E",g:"Women",p:330,o:["Gold","Rose gold"],t:"New"},
+{id:10,n:"Classic Wristwatch",c:"Jewellery",b:"Brand E",g:"Men",p:1200,o:["Gold","Black"]},
+{id:11,n:"Pendant Necklace",c:"Jewellery",b:"Brand D",g:"Women",p:350,o:["Silver"]},
+{id:12,n:"Signet Ring",c:"Jewellery",b:"Brand E",g:"Unisex",p:240,o:["Gold","Silver"]},
+{id:13,n:"Belt and Wallet Gift Set",c:"Gift Sets",b:"Brand F",g:"Men",p:600,o:["Black","Brown"],t:"New"},
+{id:14,n:"Handbag and Purse Gift Set",c:"Gift Sets",b:"Brand F",g:"Women",p:950,o:["Cream"]}];
+let P=SAMPLE;
+const F={q:"",c:[],b:[],g:[],min:"",max:"",s:"new",pg:1};
+let sel={};
+const esc=t=>String(t==null?"":t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"’");
+const $=id=>document.getElementById(id);
+const money=n=>"GH₵ "+Number(n).toLocaleString();
+const wa=t=>"https://wa.me/"+WA+"?text="+encodeURIComponent(t);
+const post=(u,d)=>fetch(u,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(d)}).catch(()=>{});
+const ph=p=>p.img?`<img class="ph" src="${p.img}" alt="${p.n}">`:`<div class="ph">${p.n}<br>[product photo]</div>`;
+const card=p=>`<a class="card" href="#/product/${p.id}">${p.t?`<span class="badge">${p.t}</span>`:""}${ph(p)}<div class="t">${p.c}</div><div class="n">${p.n}</div><div class="pr">${money(p.p)}</div></a>`;
+function toast(m){const t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toast.k);toast.k=setTimeout(()=>t.style.display="none",3500)}
+function go(c){F.c=c?[c]:[];F.b=[];F.g=[];F.q="";F.min=F.max="";F.pg=1}
+function home(){return `
+<section class="hero"><div class="wrap"><small>WELCOME TO JENELL'S LUXE VAULT</small><h1>Luxury, perfectly personal.</h1><p>Perfumes, jewellery and gift sets, chosen with you in mind.</p><a class="btn gold" href="#/shop" onclick="go()">Shop now</a></div></section>
+<div class="wrap"><div class="trust"><div><b>Authentic products</b><span>100% genuine</span></div><div><b>Fast delivery</b><span>Across Ghana</span></div><div><b>Secure payments</b><span>MTN MoMo</span></div><div><b>WhatsApp support</b><span>We're here for you</span></div></div>
+<section class="sec" style="padding-top:20px"><h2>Shop by category</h2><div class="tiles"><a class="tile" href="#/shop" onclick="go('Perfumes')"><h3>Perfumes</h3><span>Shop now</span></a><a class="tile" href="#/shop" onclick="go('Jewellery')" style="background:var(--blush2)"><h3>Jewellery</h3><span>Shop now</span></a><a class="tile" href="#/shop" onclick="go('Gift Sets')"><h3>Gift Sets</h3><span>Shop now</span></a></div></section>
+<section class="sec"><div class="sh"><h2>Featured products</h2><a href="#/shop" onclick="go()">View all</a></div><div class="grid">${P.slice(0,4).map(card).join("")}</div></section>
+<section class="sec"><div class="love"><div><h2>Customer love</h2><p class="muted">See what our amazing customers have to say.</p></div><a class="btn gold" href="#/" onclick="goRev(event)">Read reviews</a></div></section>
+<section class="sec"><h2>Latest from our channel</h2><div class="tiles" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))"><a class="tile" href="#/shop" onclick="go();F.s='new'"><h3>New arrivals</h3><span>Perfumes and jewellery</span></a><a class="tile" href="#/shop" onclick="go();F.s='lo'" style="background:var(--blush2)"><h3>Special offers</h3><span>Best prices first</span></a><a class="tile" href="#/shop" onclick="go('Jewellery');F.s='lo'"><h3>Luxury for less</h3><span>Shop now</span></a></div></section>
+<section class="sec" id="reviews"><h2>What our customers say</h2><p class="muted" style="margin-top:-12px">Real people. Real experiences.</p><div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">${[1,2,3].map(()=>`<div class="quote"><p class="stars" aria-label="5 stars">★★★★★</p><p>[Customer feedback goes here.]</p><p class="muted">[Customer name], [Town]</p></div>`).join("")}</div>
+<h3 style="font-size:28px;margin:34px 0 10px">Leave your feedback</h3><div style="max-width:520px;display:flex;flex-direction:column;gap:10px"><input class="in" id="fn" placeholder="Your name" aria-label="Your name"><textarea class="in" id="fm" rows="3" placeholder="Tell us about your experience" aria-label="Your feedback"></textarea><button class="btn out" type="button" onclick="sendF()">Send feedback on WhatsApp</button></div></section></div>`}
+function sendF(){const n=$("fn").value.trim(),m=$("fm").value.trim();if(!m){toast("Please write your feedback first.");return}window.open(wa(`Hello Jenell's Luxe Vault, my feedback: ${m}${n?" - "+n:""}`),"_blank")}
+function goRev(e){e.preventDefault();$("reviews").scrollIntoView()}
+function shop(){const L=(k,a)=>a.map(v=>`<label class="chk"><input type="checkbox" ${F[k].includes(v)?"checked":""} onchange="tog('${k}','${v}',this.checked)">${v}</label>`).join("");
+return `<div class="banner"><div class="wrap"><h1>Shop our collection</h1><p class="muted">Find your perfect scent or statement piece.</p></div></div><div class="wrap"><div class="shop"><aside class="side">
+<label>Search<input class="in" value="${F.q}" oninput="F.q=this.value;F.pg=1;draw()" placeholder="Search products"></label>
+<h3>Category</h3>${L("c",["Perfumes","Jewellery","Gift Sets"])}<h3>Price range (GH₵)</h3><div style="display:flex;gap:8px"><input class="in" type="number" aria-label="Minimum price" placeholder="Min" value="${F.min}" oninput="F.min=this.value;F.pg=1;draw()"><input class="in" type="number" aria-label="Maximum price" placeholder="Max" value="${F.max}" oninput="F.max=this.value;F.pg=1;draw()"></div>
+<h3>Brand</h3>${L("b",[...new Set(P.map(p=>p.b))])}<h3>Gender</h3>${L("g",["Women","Men","Unisex"])}<p><button class="btn out" type="button" onclick="go();route()">Clear filters</button></p></aside>
+<div class="main"><div class="sh" style="flex-wrap:wrap;margin-bottom:18px"><span class="muted" id="cnt"></span><label>Sort by <select class="in" style="width:auto" onchange="F.s=this.value;F.pg=1;draw()"><option value="new" ${F.s=="new"?"selected":""}>Newest</option><option value="lo" ${F.s=="lo"?"selected":""}>Price: low to high</option><option value="hi">Price: high to low</option></select></label></div><div class="grid" id="grid"></div><div class="pager" id="pager"></div></div></div></div>`}
+function tog(k,v,on){F[k]=on?[...F[k],v]:F[k].filter(x=>x!==v);F.pg=1;draw()}
+function draw(){let r=P.filter(p=>(!F.q||(p.n+p.b+p.c).toLowerCase().includes(F.q.toLowerCase()))&&(!F.c.length||F.c.includes(p.c))&&(!F.b.length||F.b.includes(p.b))&&(!F.g.length||F.g.includes(p.g))&&(!F.min||p.p>=+F.min)&&(!F.max||p.p<=+F.max));
+if(F.s==="lo")r.sort((a,b)=>a.p-b.p);if(F.s==="hi")r.sort((a,b)=>b.p-a.p);
+const pages=Math.max(1,Math.ceil(r.length/PER));F.pg=Math.min(F.pg,pages);const v=r.slice((F.pg-1)*PER,F.pg*PER);
+$("cnt").textContent=`Showing ${v.length?(F.pg-1)*PER+1:0}-${(F.pg-1)*PER+v.length} of ${r.length} results`;
+$("grid").innerHTML=v.length?v.map(card).join(""):"<p>No products match. Try clearing a filter.</p>";
+$("pager").innerHTML=pages>1?Array.from({length:pages},(_,i)=>`<button class="${i+1==F.pg?"on":""}" onclick="F.pg=${i+1};draw();scrollTo(0,0)">${i+1}</button>`).join(""):""}
+function prod(id){const p=P.find(x=>x.id===id)||P[0];sel={o:0,q:1,p};const more=P.filter(x=>x.c===p.c&&x.id!==p.id).slice(0,4);
+return `<div class="wrap" style="padding-top:26px"><p class="muted"><a href="#/shop">Shop</a> / ${p.c} / ${p.n}</p><div class="pd"><div>${ph(p)}<div class="thumbs">${[1,2,3].map(()=>`<div class="ph" style="aspect-ratio:1/1;font-size:12px">photo</div>`).join("")}</div></div><div>
+<h1 style="font-size:42px">${p.n}</h1><p><span class="stars" aria-label="5 stars">★★★★★</span> <span class="muted">([12] reviews)</span></p>
+<p style="font-size:28px;margin:6px 0;font-weight:600;color:var(--gold)" id="pp"></p><p class="ok">In stock</p><p class="muted">${p.d||"[Short description: notes or materials, and what makes it special.]"}</p>
+<p style="margin:16px 0 8px;font-weight:600">${p.c==="Perfumes"?"Size":"Option"}</p><div style="display:flex;flex-wrap:wrap;gap:8px" id="opts">${p.o.map((o,i)=>`<button type="button" class="opt ${i?"":"on"}" onclick="pickO(${i})">${o}</button>`).join("")}</div>
+<p style="margin:16px 0 8px;font-weight:600">Quantity</p><div style="display:flex;gap:8px;align-items:center"><button type="button" class="opt" aria-label="Decrease" onclick="qty(-1)">−</button><span id="qq" style="min-width:32px;text-align:center">1</span><button type="button" class="opt" aria-label="Increase" onclick="qty(1)">+</button></div>
+<div style="display:flex;flex-direction:column;gap:12px;margin-top:22px"><a class="btn wa" id="pwa" onclick="logOrder()" target="_blank" rel="noopener" href="#">Order on WhatsApp</a><button class="btn momo" type="button" onclick="momo()">Pay with MTN MoMo</button></div>
+<div class="assure"><span>Authentic product</span><span>Secure payment</span><span>Fast delivery</span></div>
+<details><summary>Product details</summary><p>[Full description, ingredients or materials, care.]</p></details><details><summary>Shipping and returns</summary><p>[Delivery areas, times and return policy.]</p></details><details><summary>Customer reviews</summary><p>[Reviews appear here.]</p></details></div></div>
+<section class="sec"><h2>You may also like</h2><div class="grid">${more.map(card).join("")}</div></section></div>`}
+function upd(){const{p,o,q}=sel;$("qq").textContent=q;$("pp").textContent=money(p.p*q);$("pwa").href=wa(`Hello Jenell's Luxe Vault, I'd like to order: ${p.n} (${p.o[o]}) x${q} - ${money(p.p*q)}`)}
+function pickO(i){sel.o=i;[...$("opts").children].forEach((b,j)=>b.classList.toggle("on",i===j));upd()}
+function qty(d){sel.q=Math.max(1,sel.q+d);upd()}
+function logOrder(){post("/api/order",{product_id:sel.p.id,option:sel.p.o[sel.o],qty:sel.q})}
+function momo(){const{p,o,q}=sel,amt=money(p.p*q);logOrder();
+$("momo").innerHTML=`<h2 style="font-size:30px">Pay with MTN MoMo</h2><p>Amount: <b>${amt}</b><br>${p.n} (${p.o[o]}) x${q}</p><ol style="padding-left:20px"><li>Send ${amt} to <b>${MOMO.number}</b> (${MOMO.name}).</li><li>Use "${p.n}" as the reference.</li><li>Tap the button below and send your payment screenshot.</li></ol>
+<div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn wa" target="_blank" rel="noopener" href="${wa(`Hello Jenell's Luxe Vault, I've paid ${amt} by MoMo for ${p.n} (${p.o[o]}) x${q}. Screenshot attached.`)}">I've paid, send proof</a><button class="btn out" type="button" onclick="$('momo').close()">Close</button></div>`;$("momo").showModal()}
+function consult(){return `<div class="wrap" style="padding-top:36px"><h1 style="font-size:46px">Book a consultation</h1><div class="split"><div><p class="muted">Need help choosing the perfect scent or piece? We're here to assist you.</p>
+<label>Name<input class="in" id="cn" autocomplete="name" placeholder="Your name"></label><br><br><label>Phone or WhatsApp<input class="in" id="cp" autocomplete="tel" placeholder="+233"></label><br><br><label>Message (optional)<textarea class="in" id="cm" rows="4" placeholder="How can we help you?"></textarea></label><br><br><button class="btn gold" type="button" onclick="sendC()">Send message on WhatsApp</button></div><div class="side2">Let's find your perfect match</div></div></div>`}
+function sendC(){const n=$("cn").value.trim(),p=$("cp").value.trim(),m=$("cm").value.trim();if(!n||!p){toast("Please enter your name and phone number.");return}
+post("/api/consult",{name:n,phone:p,message:m});window.open(wa(`Hello Jenell's Luxe Vault, I'd like a consultation. Name: ${n}. Phone: ${p}. ${m}`),"_blank")}
+function about(){return `<div class="wrap" style="padding-top:36px;max-width:760px"><h1 style="font-size:46px">About Jenell’s Luxe Vault</h1><p style="font-size:24px;font-family:'Cormorant Garamond',serif;font-weight:600;color:var(--gold);margin:8px 0 24px">Luxury, Perfectly Personal.</p>
+<p style="font-size:18px">Welcome to Jenell’s Luxe Vault, where elegance meets individuality. We believe that the right fragrance, a beautiful piece of jewellery, or a thoughtfully chosen gift can make every moment feel special. Our passion is bringing together stylish, luxurious essentials that help you express your personality, celebrate meaningful occasions, and make lasting impressions.</p>
+<p style="font-size:18px">Our collection features fragrances, jewellery, fashion accessories, and gift sets, carefully presented for those who appreciate beauty, sophistication, and timeless style. Whether you are searching for your signature scent, an elegant accessory, or the perfect gift for someone special, Jenell’s Luxe Vault is here to make your shopping experience personal and memorable.</p>
+<h2 style="font-size:32px;margin:36px 0 10px">Our Philosophy</h2>
+<p style="font-size:18px">At Jenell’s Luxe Vault, luxury is more than appearance - it is about how you feel. We value elegance, personal expression, thoughtful gifting, and customer care. We aim to make discovering something beautiful feel effortless, enjoyable, and special, whether you are shopping for yourself or surprising someone you love.</p>
+<h2 style="font-size:32px;margin:36px 0 10px">Our Promise to You</h2>
+<p style="font-size:18px">We are committed to providing a welcoming shopping experience, attentive customer service, and a collection that inspires confidence and style. From helping you explore our products to assisting you in finding the right gift, we want every interaction with Jenell’s Luxe Vault to feel personal.</p>
+<h2 style="font-size:32px;margin:36px 0 10px">Discover Your Luxury</h2>
+<p style="font-size:18px">Your style tells a story. Let us help you make it unforgettable.</p>
+<p style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--dark);margin:24px 0">Jenell’s Luxe Vault - Luxury, Perfectly Personal.</p>
+<a class="btn gold" href="#/shop" onclick="go()">Shop the collection</a></div>`}
+function contact(){return `<div class="wrap" style="padding-top:36px;max-width:760px"><h1 style="font-size:46px">Contact us</h1><p>WhatsApp: 054 229 3709<br>Call: <a href="tel:+233248535808">024 853 5808</a><br>Location: [TOWN, GHANA]<br>Hours: [OPENING HOURS]</p><a class="btn wa" target="_blank" rel="noopener" href="${wa("Hello Jenell's Luxe Vault")}">Chat on WhatsApp</a></div>`}
+function route(){const[,a,b]=(location.hash.slice(1)||"/").split("/");$("app").innerHTML=a==="shop"?shop():a==="product"?prod(+b):a==="consult"?consult():a==="about"?about():a==="contact"?contact():home();if(a==="shop")draw();if(a==="product")upd();scrollTo(0,0)}
+$("hwa").href=wa("Hello Jenell's Luxe Vault, I'd like to place an order.");
+$("soc").innerHTML=`<a href="${wa("Hello")}" target="_blank" rel="noopener">WhatsApp</a>`+Object.entries(SOCIAL).map(([k,v])=>`<a href="${v}" target="_blank" rel="noopener">${k}</a>`).join("");
+addEventListener("hashchange",route);route();
+fetch("/api/products").then(r=>r.ok?r.json():Promise.reject()).then(d=>{if(d.length){P=d.map(x=>({...x,n:esc(x.n),b:esc(x.b),d:esc(x.d),o:x.o.map(esc)}));route()}}).catch(()=>{});
+</script>
+</body>
+</html>

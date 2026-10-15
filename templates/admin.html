@@ -1,0 +1,10 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Jenell's Luxe Vault Manager</title>{% include "_style.html" %}</head>
+<body><div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h1>Jenell's Luxe Vault Manager</h1><form action="/admin/logout" method="post" style="width:auto"><button style="width:auto">Log out</button></form></div>
+<h2>Post a new product</h2>{% set action = "/admin/add" %}{% set p = None %}{% include "_form.html" %}
+<h2>Your products</h2><table><tr><th>Photo</th><th>Product</th><th>Price</th><th>Actions</th></tr>
+{% for p in products %}<tr><td>{% if p.image %}<img src="/static/uploads/{{ p.image }}" alt="">{% endif %}</td><td>{{ p.name }}<br><small>{{ p.category }}, {{ p.brand }}</small></td><td>GH₵ {{ p.price }}</td>
+<td><a class="btn" href="/admin/edit/{{ p.id }}">Edit</a>
+<form action="/admin/stock/{{ p.id }}" method="post"><input type="hidden" name="csrf" value="{{ csrf }}"><button>{{ "Hide from shop" if p.in_stock else "Show in shop" }}</button></form>
+<form action="/admin/delete/{{ p.id }}" method="post" onsubmit="return confirm('Delete this product?')"><input type="hidden" name="csrf" value="{{ csrf }}"><button>Delete</button></form></td></tr>{% endfor %}</table>
+<h2>WhatsApp order requests</h2><table><tr><th>When</th><th>Product</th><th>Option</th><th>Qty</th></tr>{% for o in orders %}<tr><td>{{ o.created }}</td><td>{{ o.product_name }}</td><td>{{ o.option }}</td><td>{{ o.qty }}</td></tr>{% endfor %}</table>
+<h2>Consultation requests</h2><table><tr><th>When</th><th>Name</th><th>Phone</th><th>Message</th></tr>{% for c in consults %}<tr><td>{{ c.created }}</td><td>{{ c.name }}</td><td>{{ c.phone }}</td><td>{{ c.message }}</td></tr>{% endfor %}</table></body></html>

@@ -1,0 +1,23 @@
+<form class="add" action="{{ action }}" method="post" enctype="multipart/form-data">
+<input type="hidden" name="csrf" value="{{ csrf }}">
+<label>Product name<input name="name" required value="{{ p.name if p else '' }}"></label>
+<label>Price (GH₵)<input name="price" type="number" min="0" step="1" inputmode="numeric" required value="{{ p.price if p else '' }}"></label>
+<label>Category<select name="category">{% for c in ["Perfumes","Jewellery","Gift Sets"] %}<option {{ "selected" if p and p.category==c }}>{{ c }}</option>{% endfor %}</select></label>
+<label>Brand<input name="brand" required value="{{ p.brand if p else '' }}"></label>
+<label>For<select name="gender">{% for g in ["Women","Men","Unisex"] %}<option {{ "selected" if p and p.gender==g }}>{{ g }}</option>{% endfor %}</select></label>
+<label>Sizes or options (separate with commas)<input name="options" placeholder="30ml, 50ml, 90ml" value="{{ p.options if p else '' }}"></label>
+<label class="wide">Details (scent notes, materials, what makes it special)<textarea name="description" rows="4">{{ p.description if p else '' }}</textarea></label>
+<div class="wide"><b>Photo</b><div style="display:flex;gap:10px;flex-wrap:wrap;margin:8px 0">
+<label class="btn">Take photo<input type="file" name="image" accept="image/*" capture="environment" hidden></label>
+<label class="btn">Choose from gallery<input type="file" name="image" accept="image/*" hidden></label></div>
+<img id="prev" alt="Photo preview" {% if p and p.image %}src="/static/uploads/{{ p.image }}"{% else %}hidden{% endif %}></div>
+<button class="save wide">{{ "Save changes" if p else "Save and publish" }}</button></form>
+<script>
+const prev=document.getElementById("prev"),files=[...document.querySelectorAll('input[type=file]')];
+files.forEach(inp=>inp.addEventListener("change",async()=>{const f=inp.files[0];if(!f)return;
+files.forEach(o=>{if(o!==inp)o.value=""});
+try{const im=await createImageBitmap(f),s=Math.min(1,1200/Math.max(im.width,im.height)),c=document.createElement("canvas");
+c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext("2d").drawImage(im,0,0,c.width,c.height);
+const b=await new Promise(r=>c.toBlob(r,"image/jpeg",.85)),dt=new DataTransfer();dt.items.add(new File([b],"photo.jpg",{type:"image/jpeg"}));inp.files=dt.files;
+prev.src=URL.createObjectURL(b)}catch(e){prev.src=URL.createObjectURL(f)}prev.hidden=false}));
+</script>
