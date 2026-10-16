@@ -10,7 +10,7 @@
 <div class="wide"><b>Photo</b><div style="display:flex;gap:10px;flex-wrap:wrap;margin:8px 0">
 <label class="btn">Take photo<input type="file" name="image" accept="image/*" capture="environment" hidden></label>
 <label class="btn">Choose from gallery<input type="file" name="image" accept="image/*" hidden></label></div>
-<img id="prev" alt="Photo preview" {% if p and p.image %}src="/static/uploads/{{ p.image }}"{% else %}hidden{% endif %}></div>
+<img id="prev" alt="Photo preview" {% if p and p.image %}src="/uploads/{{ p.image }}"{% else %}hidden{% endif %}></div>
 <button class="save wide">{{ "Save changes" if p else "Save and publish" }}</button></form>
 <script>
 const prev=document.getElementById("prev"),files=[...document.querySelectorAll('input[type=file]')];

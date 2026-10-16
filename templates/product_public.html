@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{ p.name }} | Jenell's Luxe Vault</title>
+<meta name="description" content="{{ desc }}">
+<link rel="canonical" href="{{ url }}">
+<meta property="og:type" content="product"><meta property="og:site_name" content="Jenell's Luxe Vault">
+<meta property="og:title" content="{{ p.name }} | Jenell's Luxe Vault"><meta property="og:description" content="{{ desc }}"><meta property="og:url" content="{{ url }}">
+{% if img %}<meta property="og:image" content="{{ img }}">{% endif %}
+<script type="application/ld+json">{{ ld|safe }}</script>
+<style>
+body{margin:0;background:#FBF7EE;color:#2B2118;font:16px/1.55 sans-serif}
+header{background:#FFFDF8;border-bottom:1px solid #DCD2B4;padding:14px 20px}header a{color:#0B3B2C;font:600 26px Georgia,serif;text-decoration:none}
+main{max-width:1000px;margin:0 auto;padding:24px 20px}
+.pd{display:flex;flex-wrap:wrap;gap:36px}.pd>*{flex:1 1 320px}
+img{width:100%;height:auto;border:1px solid #DCD2B4;border-radius:4px}
+h1{font:600 40px Georgia,serif;color:#0B3B2C;margin:6px 0}.cat{color:#5E5646;margin:0}.price{font-size:26px;font-weight:600;color:#8A6A1B}
+.btn{display:inline-block;padding:12px 24px;border-radius:4px;font-weight:600;text-decoration:none;margin:6px 8px 6px 0;border:1px solid #0B3B2C;color:#0B3B2C;background:#fff}
+.wa{background:#137A3B;border-color:#137A3B;color:#fff}
+footer{padding:24px 20px;text-align:center;color:#5E5646}
+</style></head>
+<body>
+<header><a href="/">Jenell's Luxe Vault</a></header>
+<main><div class="pd">
+{% if img %}<img src="{{ img }}" alt="{{ p.name }}">{% endif %}
+<div><p class="cat">{{ p.category }} &middot; {{ p.brand }}</p><h1>{{ p.name }}</h1>
+<p class="price">GH₵ {{ "{:,}".format(p.price) }}</p>
+{% if options %}<p><b>Available options:</b> {{ options|join(", ") }}</p>{% endif %}
+{% if p.description %}<p>{{ p.description }}</p>{% endif %}
+<a class="btn wa" href="{{ wa_link }}" rel="noopener">Order on WhatsApp</a>
+<a class="btn" href="/#/product/{{ p.id }}">Choose size and quantity</a></div></div></main>
+<footer><a href="/#/shop">Browse the full collection</a> &middot; Jenell's Luxe Vault, Luxury, Perfectly Personal.</footer>
+</body></html>

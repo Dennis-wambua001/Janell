@@ -1,13 +1,24 @@
-import os, sqlite3, uuid, hmac, secrets
+import os, json, sqlite3, uuid, hmac, secrets
 from functools import wraps
-from flask import Flask, g, jsonify, request, session, redirect, render_template, send_from_directory, abort
+from html import escape
+from urllib.parse import quote
+from flask import (Flask, g, jsonify, request, session, redirect, render_template,
+                   send_from_directory, abort, Response)
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 app = Flask(__name__)
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 app.secret_key = os.environ.get("SECRET_KEY", "change-me")
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "change-me")
+WA_NUMBER = os.environ.get("WA_NUMBER", "233542293709")   # digits only, with country code
 app.config["MAX_CONTENT_LENGTH"] = 8 * 1024 * 1024
-DB = "shop.db"
-UPLOADS = os.path.join("static", "uploads")
+app.config.update(SESSION_COOKIE_HTTPONLY=True, SESSION_COOKIE_SAMESITE="Lax",
+                  SESSION_COOKIE_SECURE=bool(os.environ.get("RENDER")))
+
+# On Render, set DATA_DIR to the disk's mount path (for example /var/data).
+DATA_DIR = os.environ.get("DATA_DIR")
+DB = os.path.join(DATA_DIR, "shop.db") if DATA_DIR else "shop.db"
+UPLOADS = os.path.join(DATA_DIR, "uploads") if DATA_DIR else os.path.join("static", "uploads")
 os.makedirs(UPLOADS, exist_ok=True)
 CATEGORIES = ("Perfumes", "Jewellery", "Gift Sets")
 
@@ -41,10 +52,92 @@ with sqlite3.connect(DB) as c:
 if ADMIN_PASSWORD == "change-me" or app.secret_key == "change-me":
     print("WARNING: default admin password or secret key in use. Set ADMIN_PASSWORD and SECRET_KEY before going online.")
 
+@app.after_request
+def keep_admin_out_of_search(resp):
+    if request.path.startswith("/admin"):
+        resp.headers["X-Robots-Tag"] = "noindex, nofollow"
+    return resp
+
+# ---------- search engine helpers ----------
+SITE_DESC = ("Shop perfumes, jewellery and gift sets at Jenell's Luxe Vault. Authentic fragrances, "
+             "elegant jewellery and thoughtful gifts, delivered across Ghana and ordered easily on WhatsApp.")
+
+def site_url():
+    return (os.environ.get("SITE_URL") or request.url_root).rstrip("/")
+
+def seo_head(base):
+    title = "Jenell's Luxe Vault | Perfumes, Jewellery and Gift Sets in Ghana"
+    ld = {"@context": "https://schema.org", "@type": "Store", "name": "Jenell's Luxe Vault",
+          "description": SITE_DESC, "url": base + "/", "telephone": "+" + WA_NUMBER,
+          "slogan": "Luxury, Perfectly Personal.", "areaServed": {"@type": "Country", "name": "Ghana"}}
+    tags = [f'<meta name="description" content="{escape(SITE_DESC)}">',
+            f'<link rel="canonical" href="{escape(base)}/">',
+            '<meta name="robots" content="index,follow">',
+            '<meta property="og:type" content="website">',
+            '<meta property="og:site_name" content="Jenell\'s Luxe Vault">',
+            f'<meta property="og:title" content="{escape(title)}">',
+            f'<meta property="og:description" content="{escape(SITE_DESC)}">',
+            f'<meta property="og:url" content="{escape(base)}/">',
+            '<meta name="twitter:card" content="summary">']
+    if os.path.exists(os.path.join("static", "logo.png")):
+        tags.append(f'<meta property="og:image" content="{escape(base)}/static/logo.png">')
+    tags.append('<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False).replace("</", "<\\/") + "</script>")
+    return title, "".join(tags)
+
+@app.route("/robots.txt")
+def robots():
+    return Response(f"User-agent: *\nAllow: /\nDisallow: /admin\nSitemap: {site_url()}/sitemap.xml\n", mimetype="text/plain")
+
+@app.route("/sitemap.xml")
+def sitemap():
+    base = site_url()
+    urls = [base + "/"] + [f"{base}/product/{r['id']}" for r in
+                           db().execute("select id from products where in_stock=1 order by id")]
+    body = "".join(f"<url><loc>{escape(u)}</loc></url>" for u in urls)
+    return Response('<?xml version="1.0" encoding="UTF-8"?>'
+                    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + body + "</urlset>",
+                    mimetype="application/xml")
+
+@app.route("/product/<int:pid>")
+def product_page(pid):
+    p = db().execute("select * from products where id=? and in_stock=1", (pid,)).fetchone()
+    if not p:
+        abort(404)
+    base = site_url()
+    url = f"{base}/product/{pid}"
+    img = f"{base}/uploads/{p['image']}" if p["image"] else ""
+    options = [o.strip() for o in (p["options"] or "").split(",") if o.strip()]
+    desc = (p["description"] or f"{p['name']} by {p['brand']}. {p['category']} at Jenell's Luxe Vault, delivered across Ghana.")[:300]
+    data = {"@context": "https://schema.org", "@type": "Product", "name": p["name"], "description": desc,
+            "brand": {"@type": "Brand", "name": p["brand"]}, "category": p["category"], "url": url,
+            "offers": {"@type": "Offer", "price": str(p["price"]), "priceCurrency": "GHS",
+                       "availability": "https://schema.org/InStock", "url": url}}
+    if img:
+        data["image"] = [img]
+    ld = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
+    text = quote(f"Hello Jenell's Luxe Vault, I'd like to order: {p['name']} - GH₵ {p['price']}")
+    return render_template("product_public.html", p=p, desc=desc, url=url, img=img, ld=ld, options=options,
+                           wa_link=f"https://wa.me/{WA_NUMBER}?text={text}")
+
 # ---------- public ----------
 @app.route("/")
 def home():
-    return send_from_directory("static", "index.html")
+    base = site_url()
+    title, head = seo_head(base)
+    with open(os.path.join("static", "index.html"), encoding="utf-8") as f:
+        html = f.read()
+    rows = db().execute("select id, name from products where in_stock=1 order by id desc limit 100").fetchall()
+    links = "".join(f'<li><a href="/product/{r["id"]}">{escape(r["name"])}</a></li>' for r in rows)
+    intro = ("<main id=\"app\"><h1>Jenell's Luxe Vault</h1><p>Luxury, Perfectly Personal. Perfumes, jewellery and "
+             "gift sets, with delivery across Ghana and ordering on WhatsApp.</p>" + (f"<ul>{links}</ul>" if links else "") + "</main>")
+    html = html.replace("<title>Jenell's Luxe Vault | Luxury, Perfectly Personal</title>", f"<title>{escape(title)}</title>", 1)
+    html = html.replace("</head>", head + "</head>", 1)
+    html = html.replace('<main id="app"></main>', intro, 1)
+    return html
+
+@app.route("/uploads/<path:name>")
+def uploads(name):
+    return send_from_directory(os.path.abspath(UPLOADS), name)
 
 @app.route("/api/products")
 def products():
@@ -52,7 +145,7 @@ def products():
     return jsonify([{"id": r["id"], "n": r["name"], "c": r["category"], "b": r["brand"], "g": r["gender"],
                      "p": r["price"], "d": r["description"] or "",
                      "o": [o.strip() for o in (r["options"] or "").split(",") if o.strip()] or ["Standard"],
-                     "img": ("/static/uploads/" + r["image"]) if r["image"] else ""} for r in rows])
+                     "img": ("/uploads/" + r["image"]) if r["image"] else ""} for r in rows])
 
 @app.route("/api/consult", methods=["POST"])
 def consult():
