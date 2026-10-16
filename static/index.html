@@ -150,7 +150,7 @@ function about(){return `<div class="wrap" style="padding-top:36px;max-width:760
 <p style="font-size:18px">Your style tells a story. Let us help you make it unforgettable.</p>
 <p style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--dark);margin:24px 0">Jenell’s Luxe Vault - Luxury, Perfectly Personal.</p>
 <a class="btn gold" href="#/shop" onclick="go()">Shop the collection</a></div>`}
-function contact(){return `<div class="wrap" style="padding-top:36px;max-width:760px"><h1 style="font-size:46px">Contact us</h1><p>WhatsApp: 054 229 3709<br>Call: <a href="tel:+233248535808">024 853 5808</a><br>Location: [TOWN, GHANA]<br>Hours: [OPENING HOURS]</p><a class="btn wa" target="_blank" rel="noopener" href="${wa("Hello Jenell's Luxe Vault")}">Chat on WhatsApp</a></div>`}
+function contact(){return `<div class="wrap" style="padding-top:36px;max-width:760px"><h1 style="font-size:46px">Contact us</h1><p>WhatsApp: 054 229 3709<br>Call: <a href="tel:+233542293709">+233542293709</a><br>Location: [TOWN, GHANA]<br>Hours: [OPENING HOURS]</p><a class="btn wa" target="_blank" rel="noopener" href="${wa("Hello Jenell's Luxe Vault")}">Chat on WhatsApp</a></div>`}
 function route(){const[,a,b]=(location.hash.slice(1)||"/").split("/");$("app").innerHTML=a==="shop"?shop():a==="product"?prod(+b):a==="consult"?consult():a==="about"?about():a==="contact"?contact():home();if(a==="shop")draw();if(a==="product")upd();scrollTo(0,0)}
 $("hwa").href=wa("Hello Jenell's Luxe Vault, I'd like to place an order.");
 $("soc").innerHTML=`<a href="${wa("Hello")}" target="_blank" rel="noopener">WhatsApp</a>`+Object.entries(SOCIAL).map(([k,v])=>`<a href="${v}" target="_blank" rel="noopener">${k}</a>`).join("");
